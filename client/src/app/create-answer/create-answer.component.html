@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <div class="row">
+        <a [routerLink]="['/show_question']"><button class="btn btn-primary" style="display: inline-block;">Home</button></a>
+        <form (submit) = "logout()" style="display: inline-block;">
+          <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+        <a [routerLink]="['/']"><button class="btn btn-primary" style="display: inline-block;">Go back to Question</button></a>
+      </div>
+      <h2>Question title: {{question.title}}</h2>
+      <p>Description: {{question.description}}</p>
+    </div>
+
+    <form (submit) = "createAnswer()" #formCreate="ngForm">
+        <div class="form-group">
+          <label>Your Answer: </label>
+          <input type="text" class="form-control" aria-describedby="emailHelp" name="title" placeholder="Enter your answer" [(ngModel)] = "answer.title" required #title = "ngModel">
+        </div>
+        <div *ngIf="title.invalid && (title.dirty || title.touched)">
+          <div class="alert alert-success" role="alert" *ngIf="title.errors.required">
+            <strong>What the hell!</strong> Answer is required!
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Supporting details</label>
+          <input type="text" name="description" class="form-control" placeholder="Description" [(ngModel)] = "answer.support">
+        </div>
+        
+        <button type="submit" class="btn btn-success" [disabled]="formCreate.invalid">Submit</button>
+      </form>
+  </div>
+</body>
+</html>

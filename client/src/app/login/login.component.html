@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div id="bg">
+        <img src="https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg" alt="">
+    </div>
+    <div class="loginbox container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a href="#" class="active" id="login-form-link">Login</a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="#" id="register-form-link">Register</a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form id="login-form" (submit)="login()" role="form" #formLogin="ngForm" style="display: block;">
+                                    <div class="form-group">
+                                        <input type="text" [(ngModel)]="user_login.email" required #loginemail="ngModel" name="email" id="email" tabindex="1" class="form-control"
+                                        placeholder="Email" value="">
+                                        <div *ngIf="loginemail.invalid && (loginemail.dirty || loginemail.touched)">
+                                            <div class="alert alert-success" role="alert" *ngIf="loginemail.errors.required">
+                                                <strong>What the hell!</strong> You have to put an email!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" [(ngModel)]="user_login.password" required minlength="3" #password="ngModel" name="password" id="password"
+                                        tabindex="2" class="form-control" placeholder="Password">
+                                    </div>
+                                    <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                                        <div class="alert alert-success" role="alert" *ngIf="password.errors.required">
+                                            <strong>What the hell!</strong> password is required!
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <button type="submit" name="login-submit" [disabled]="formLogin.invalid" id="login-submit" tabindex="4" class="form-control btn btn-login">Log In</button>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-success" role="alert" *ngIf="error_message.login != ''">
+                                            <strong>What the hell!</strong> {{error_message.login}}
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <!-- register -->
+                                <form id="register-form" (submit)="register()" #registerForm="ngForm" role="form" style="display: none;" #registerForm="ngForm">
+                                    <!-- register username -->
+                                    <div class="form-group">
+                                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" [(ngModel)]="user_reg.name"
+                                        required minlength="4" #reginame="ngModel">
+                                    </div>
+                                    <div *ngIf="reginame.invalid && (reginame.dirty || reginame.touched)">
+                                        <div class="alert alert-success" role="alert" *ngIf="reginame.errors.required">
+                                            <strong>What the hell!</strong> You have to put a user name!
+                                        </div>
+                                    </div>
+                                    <div *ngIf="reginame.invalid && (reginame.dirty || reginame.touched)">
+                                        <div class="alert alert-success" role="alert" *ngIf="reginame.errors.minilength">
+                                            <strong>What the hell!</strong> Not long enough!
+                                        </div>
+                                    </div>
+                                    <!-- register email -->
+                                    <div class="form-group">
+                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" [(ngModel)]="user_reg.email"
+                                        required email #regiemail="ngModel">
+                                    </div>
+                                    <div *ngIf="regiemail.invalid && (regiemail.dirty || regiemail.touched)">
+                                        <div class="alert alert-success" role="alert" *ngIf="regiemail.errors.required">
+                                            <strong>What the hell!</strong> You have to put an email!
+                                        </div>
+                                    </div>
+                                    <div *ngIf="regiemail.invalid && (regiemail.dirty || regiemail.touched)">
+                                        <div class="alert alert-success" role="alert" *ngIf="regiemail.errors.minilength">
+                                            <strong>What the hell!</strong> Your input is invalid!
+                                        </div>
+                                    </div>
+                                    <!-- register password -->
+                                    <div class="form-group">
+                                        <input type="password" name="password" [(ngModel)]="user_reg.password" required minilength="4" #regipassword="ngModel" id="password"
+                                        tabindex="2" class="form-control" placeholder="Password">
+                                    </div>
+                                    <div *ngIf="regipassword.invalid && (regipassword.dirty || regipassword.touched)">
+                                        <div class="alert alert-success" role="alert" *ngIf="regipassword.errors.required">
+                                            <strong>What the hell!</strong> You have to put an password!
+                                        </div>
+                                    </div>
+                                    <div *ngIf="regipassword.invalid && (regipassword.dirty || regipassword.touched)">
+                                        <div class="alert alert-success" role="alert" *ngIf="regipassword.errors.minilength">
+                                            <strong>What the hell!</strong> Not long enough!
+                                        </div>
+                                    </div>
+                                    <!-- register password confirm -->
+                                    <div class="form-group">
+                                        <input type="password" name="confirm-password" id="confirm-password" tabindex="2" required pattern="{{user_reg.password}}" [(ngModel)]="password_confirm.con"
+                                        #password_con="ngModel" class="form-control" placeholder="Confirm Password">
+                                    </div>
+                                    <div *ngIf="password_con.invalid && (password_con.dirty || password_con.touched)">
+                                        <div class="alert alert-success" role="alert" *ngIf="password_con.errors.required">
+                                            <strong>What the hell!</strong> You have to put an password confirmation!
+                                        </div>
+                                    </div>
+                                    <div *ngIf="password_con.invalid && (password_con.dirty || password_con.touched)">
+                                        <div class="alert alert-success" role="alert" *ngIf="password_con.errors.pattern">
+                                            <strong>What the hell!</strong> Not mattch your password!
+                                        </div>
+                                    </div>
+                                    <!-- register button -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now"
+                                                [disabled]="registerForm.invalid">
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-success" role="alert" *ngIf="error_message.email != ''">
+                                            <strong>What the hell!</strong> {{error_message.email}}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

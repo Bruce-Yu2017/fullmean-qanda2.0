@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <div class="row">
+        <a [routerLink]="['/show_question']"><button class="btn btn-primary" style="display: inline-block;">Home</button></a>
+        <form (submit) = "logout()" style="display: inline-block;">
+          <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+        <a [routerLink]="['/questions', question._id, 'answer']"><button class="btn btn-primary" style="display: inline-block;">Go back to Question</button></a>
+      </div>
+      <h2>Question title: {{question.title}}</h2>
+      <p>Description: {{question.description}}</p>
+    </div>
+    <h1>Here are answers: </h1>
+    <table class="table table-striped">
+      <tr>
+        <th>Author</th>
+        <th>Answer</th>
+        <th>Support</th>
+        <th>Like it?</th>
+      </tr>
+      <tr *ngFor = "let a of question._answers">
+        <td scope="row">{{a._user.name}}</td>
+        <td>{{a.title}}</td>
+        <td>{{a.support}}</td>
+        <td>{{a.likes}} <button class="btn btn-success" (click) = "like(a._id)">Like!</button></td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+</html>

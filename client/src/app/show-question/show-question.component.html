@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Hi, {{user.name}}</h1>
+      <a [routerLink]="['/create_question']"><button class="btn btn-info">Add a Question</button></a>
+      
+      <form (submit) = "logout()">
+        <button type="submit" class="btn btn-danger">Logout</button>
+      </form>
+      <br>
+      <form class="form">
+        <input class="form-control" type="text" name="search" [(ngModel)] = "search" (keyup) = (searchitem()) placeholder="Search questions here">
+      </form>
+      
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Creater</th>
+            <th>Answer number</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let q of questions">
+            <th scope="row">{{q.title}}</th>
+            <td>{{q._user.name}}</td>
+            <td>{{q._answers.length}}</td>
+            <td ><a [routerLink]="['/questions', q._id]"><button class="btn btn-info">Show</button></a> <button class="btn btn-danger" *ngIf = "q._user._id == user._id" (click) = "destroy(q._id)" >Delete</button> <a [routerLink]="['/questions', q._id, 'answer']"><button class="btn btn-success" *ngIf = "q._user._id != user._id">Answer It</button></a> </td>
+          
+          </tr>
+          
+        </tbody>
+      </table>
+      
+    </div>
+  </body>
+</html>
